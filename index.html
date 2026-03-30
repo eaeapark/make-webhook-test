@@ -1,13 +1,158 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ash Parrot MVP</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f7f7fb;
+      margin: 0;
+      padding: 0;
+      color: #222;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 60px auto;
+      background: white;
+      padding: 32px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    }
+
+    h1 {
+      margin-bottom: 8px;
+      font-size: 32px;
+    }
+
+    p.subtitle {
+      margin-bottom: 28px;
+      color: #666;
+      font-size: 16px;
+    }
+
+    label {
+      display: block;
+      margin-top: 18px;
+      margin-bottom: 8px;
+      font-weight: bold;
+    }
+
+    input, textarea, select, button {
+      width: 100%;
+      padding: 14px;
+      border-radius: 12px;
+      border: 1px solid #ddd;
+      font-size: 16px;
+      box-sizing: border-box;
+    }
+
+    textarea {
+      min-height: 140px;
+      resize: vertical;
+    }
+
+    button {
+      margin-top: 28px;
+      background: #111827;
+      color: white;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+
+    .status {
+      margin-top: 18px;
+      font-size: 15px;
+      color: #444;
+    }
+
+    .brand {
+      font-size: 14px;
+      color: #888;
+      margin-bottom: 10px;
+      letter-spacing: 1px;
+    }
+  </style>
+</head>
 <body>
-<form action="https://hook.us2.make.com/c55r3dx6ox552s7o4qd5kis084pwcy8i"
-      method="POST"
-      accept-charset="UTF-8">
-  <input type="text" name="name" placeholder="name">
-  <input type="email" name="email" placeholder="email">
-  <textarea name="message"></textarea>
-  <button type="submit">send</button>
-</form>
+  <div class="container">
+    <div class="brand">ASH PARROT MVP</div>
+    <h1>I’m listening.</h1>
+    <p class="subtitle">Enter your text and choose your language pair.</p>
+
+    <form id="ashForm">
+      <label for="name">Your Name</label>
+      <input type="text" id="name" name="name" placeholder="Your name" required />
+
+      <label for="email">Your Email</label>
+      <input type="email" id="email" name="email" placeholder="you@example.com" required />
+
+      <label for="message">Script / Text</label>
+      <textarea id="message" name="message" placeholder="Type your script here..." required></textarea>
+
+      <label for="source_lang">Source Language</label>
+      <select id="source_lang" name="source_lang" required>
+        <option value="ko">Korean</option>
+        <option value="en">English</option>
+        <option value="ja">Japanese</option>
+      </select>
+
+      <label for="target_lang">Target Language</label>
+      <select id="target_lang" name="target_lang" required>
+        <option value="en">English</option>
+        <option value="ja">Japanese</option>
+        <option value="ko">Korean</option>
+      </select>
+
+      <button type="submit">Generate</button>
+      <div class="status" id="status"></div>
+    </form>
+  </div>
+
+  <script>
+    const form = document.getElementById("ashForm");
+    const status = document.getElementById("status");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      status.textContent = "Got it. I hear you.";
+
+      const data = {
+        name: form.name.value,
+        email: form.email.value,
+        message: form.message.value,
+        source_lang: form.source_lang.value,
+        target_lang: form.target_lang.value
+      };
+
+      try {
+        const response = await fetch("여기에_네_Make_Webhook_URL_붙여넣기", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(data)
+        });
+
+        if (response.ok) {
+          status.textContent = "Request received successfully.";
+          form.reset();
+        } else {
+          status.textContent = "Something went wrong.";
+        }
+      } catch (error) {
+        status.textContent = "I lost you for a moment.";
+      }
+    });
+  </script>
 </body>
 </html>

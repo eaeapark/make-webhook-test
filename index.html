@@ -129,15 +129,16 @@
       status.textContent = "Got it. I hear you.";
 
       const data = {
-        name: form.name.value,
-        email: form.email.value,
-        message: form.message.value,
-        source_lang: form.source_lang.value,
-        target_lang: form.target_lang.value
-      };
-
+  secret: "ash-parrot-local-secret-804608",
+  name: form.name.value,
+  email: form.email.value,
+  message: form.message.value,
+  text: form.message.value,
+  source_lang: form.source_lang.value,
+  target_lang: form.target_lang.value
+};
       try {
-        const response = await fetch("https://hook.us2.make.com/vw8xlepd0vw9gkjpxytlkjjbo9ho06x5", {
+        const response = await fetch("https://script.google.com/macros/s/AKfycbxWd6h6FTJfCmFSJxNxV1PUMUorqneWYseJlFpGnHIaGM76S8EG07Vjv_RPMMrfN8M/exec", {
           method: "POST",
           headers: {
             "Content-Type": "application/json"
